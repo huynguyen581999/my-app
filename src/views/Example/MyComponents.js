@@ -1,4 +1,5 @@
 import React from "react";
+import ChildComponent from "./ChildComponent";
 
 /** 
  * (#4 Components - Viên Gạch Tạo Nên Bố Cục Của React.JS)
@@ -32,30 +33,53 @@ import React from "react";
  * Khi viet mot JSX thi phai can dau dong mo ngoac {}.
  * 
  * (#8 setState - Thay Đổi State và Re-render của React.JS)
+ * cu phap thay doi state: this.setState({
+ *   key:.....;
+ * })
+ * 
+ * (#9 Forms in React.JS - Thu Thập Dữ Liệu Inputs HTML)
+ * dung ham preventDefault de ngan chan viet load lai trang de lay du lieu khi nhan nut Submit
+ * 
  * Tai lieu tham khao chinh thong tren reactjs.org   
 */
 
 class MyComponents extends React.Component {
 
-    state = {
-        name: 'James',
-        age: '25'
-    }
+    constructor() {
+        super();
+        this.state = {
+            firstName: '',
+            lastName: '',
+            arrayJob: [
+                { id: 'job1', title: 'Developer', salary: '400' },
+                { id: 'job2', title: 'Tester', salary: '500' },
+                { id: 'job3', title: 'Project Manager', salary: '1000' }
+            ]
+        };
+    };
 
-    handleOnChangeName = (event) => {
+    handChangefirstName = (event) => {
         this.setState({
-            name: event.target.value
-        })
-    }
+            firstName: event.target.value
+        });
+    };
 
-    handleClickButton = () => {
-        console.log('Hit the button')
-        alert('Click me')
-    }
+    handChangelastName = (event) => {
+        this.setState({
+            lastName: event.target.value
+        });
+    };
+
+    handleSubmit = (event) => {
+        console.log('First name: ', this.state.firstName);
+        console.log('Last  name: ', this.state.lastName);
+        event.preventDefault();
+    };
+
     render() {
         return (
             <>
-                <div className="first">
+                {/* <div className="first">
                     <input value={this.state.name} type='text'
                         onChange={(event) => this.handleOnChangeName(event)}
                     />
@@ -66,9 +90,33 @@ class MyComponents extends React.Component {
                 </div>
                 <div className="third">
                     <button onClick={() => this.handleClickButton()}>Click me</button>
-                </div>
+                </div> */}
+
+                <form>
+                    <label htmlFor="fname">First name:</label><br />
+                    <input
+                        type="text"
+                        value={this.state.firstName}
+                        onChange={(event) => this.handChangefirstName(event)}
+                    /><br />
+                    <label htmlFor="lname">Last name:</label><br />
+                    <input type="text"
+                        value={this.state.lastName}
+                        onChange={(event) => this.handChangelastName(event)}
+                    /><br />
+                    <input type="submit" value="Submit"
+                        onClick={(event) => this.handleSubmit(event)}
+                    />
+                </form>
+                <ChildComponent
+                    name={this.state.firstName}
+                    age={'20'}
+                    address={'TP Ho Chi Minh'}
+                    arrayJob={this.state.arrayJob}
+                />
             </>
         );
-    }
-}
+    };
+};
+
 export default MyComponents;

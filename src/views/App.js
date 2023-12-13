@@ -9,15 +9,16 @@ function App() {
         <p>
           Hello Nikilauda welcome to React JS
         </p>
-        <a
+        {/* <a
           className="App-link"
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
         >
           Learn React
-        </a>
+        </a> */}
         <MyComponents />
+
       </header>
     </div>
   );
